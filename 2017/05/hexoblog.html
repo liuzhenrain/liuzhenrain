@@ -1,0 +1,923 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="lPMj6TGZsxNbhxvcaqtI54z6k4QfX6caEMvvHpyc9xE" />
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="xd9hRSav8Y" />
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|Monda:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="hexo,教程,github,完全,qiniu,七牛" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Lzrain Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="人生就是不停的折腾，不是正在折腾就是走在折腾的路上  这篇教程来自于我的折腾，完成此篇所有的操作，能够实现 Coding.net ,Github.com 同时同步，并且将博客所有的源文件自动备份到 git.oschina.net 的项目中，当然你可以选择将所有的文件全部同步到同一个git库中。通过 Dnspod 实现国内外流量分流，国内流量分流到 pages.coding.net，国外流量分流到">
+<meta name="keywords" content="hexo,教程,github,完全,qiniu,七牛">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo博客完全版教程">
+<meta property="og:url" content="http://lzrain.com/2017/05/hexoblog.html">
+<meta property="og:site_name" content="Lzrain Blog">
+<meta property="og:description" content="人生就是不停的折腾，不是正在折腾就是走在折腾的路上  这篇教程来自于我的折腾，完成此篇所有的操作，能够实现 Coding.net ,Github.com 同时同步，并且将博客所有的源文件自动备份到 git.oschina.net 的项目中，当然你可以选择将所有的文件全部同步到同一个git库中。通过 Dnspod 实现国内外流量分流，国内流量分流到 pages.coding.net，国外流量分流到">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-05-19T02:10:10.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo博客完全版教程">
+<meta name="twitter:description" content="人生就是不停的折腾，不是正在折腾就是走在折腾的路上  这篇教程来自于我的折腾，完成此篇所有的操作，能够实现 Coding.net ,Github.com 同时同步，并且将博客所有的源文件自动备份到 git.oschina.net 的项目中，当然你可以选择将所有的文件全部同步到同一个git库中。通过 Dnspod 实现国内外流量分流，国内流量分流到 pages.coding.net，国外流量分流到">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+  <link rel="canonical" href="http://lzrain.com/2017/05/hexoblog.html"/>
+
+
+
+
+
+  <title>Hexo博客完全版教程 | Lzrain Blog</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-70387805-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Lzrain Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">雨天的博客</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://lzrain.com/2017/05/hexoblog.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="liuzhenrain">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avator.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lzrain Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Hexo博客完全版教程</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-09T18:28:59+08:00">
+                2017-05-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/教程/" itemprop="url" rel="index">
+                    <span itemprop="name">教程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-eye"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote class="blockquote-center"><p>人生就是不停的折腾，不是正在折腾就是走在折腾的路上</p>
+</blockquote>
+<p>这篇教程来自于我的折腾，完成此篇所有的操作，能够实现 Coding.net ,Github.com 同时同步，并且将博客所有的源文件自动备份到 git.oschina.net 的项目中，当然你可以选择将所有的文件全部同步到同一个git库中。通过 Dnspod 实现国内外流量分流，国内流量分流到 pages.coding.net，国外流量分流到 github.com。加入了 qiniu.com 的图片插件，节省库容量，毕竟最多只能提过1G的容量，而且能够显著的提高图片的加载速度。</p>
+<div class="note warning"><p>提醒：这篇文章走下来，国内用户访问会出现一个问题，每天第一次访问，会有coding.net的一个展示界面，这个没办法，我没有给coding.net钱，他们又是免费提供page服务。</p>
+</div>
+<a id="more"></a>
+<h1 id="环境安装"><a href="#环境安装" class="headerlink" title="环境安装"></a>环境安装</h1><h2 id="写作工具"><a href="#写作工具" class="headerlink" title="写作工具"></a>写作工具</h2><p>推荐使用微软的 vscode 作为写作工具，这是一个自由度非常高，插件非常丰富，设置非常简单的跨平台文本编辑器，自带就有 Markdown 预览功能。</p>
+<h2 id="安装Git"><a href="#安装Git" class="headerlink" title="安装Git"></a>安装Git</h2><ul>
+<li>在windows下，<a href="https://pan.baidu.com/s/1misPT48" target="_blank" rel="noopener">下载Git</a></li>
+<li>MAC，因为我自己有下载xcode所以不能确认Mac是否自带有Git</li>
+</ul>
+<h2 id="安装-Nodejs"><a href="#安装-Nodejs" class="headerlink" title="安装 Nodejs"></a>安装 Nodejs</h2><h3 id="下载地址"><a href="#下载地址" class="headerlink" title="下载地址"></a>下载地址</h3><p>NodeJs官方网站因为在国内你懂得<code>网络情况</code>，所以建议使用淘宝的源以及安装文件</p>
+<p><a href="https://npm.taobao.org/mirrors/node/v7.9.0/node-v7.9.0-x64.msi" target="_blank" rel="noopener">下载地址-64位-WIN</a></p>
+<p><a href="https://npm.taobao.org/mirrors/node/v7.9.0/node-v7.9.0-x86.msi" target="_blank" rel="noopener">下载地址-32位-WIN</a></p>
+<p><a href="https://npm.taobao.org/mirrors/node/v7.9.0/node-v7.9.0.pkg" target="_blank" rel="noopener">下载地址-Mac</a></p>
+<p>不建议安装在默认位置，最好选择非C盘路径,接下来的很多设置都和这个文件夹有问题，以及以后的 node_module 都会安装在这个文件夹下</p>
+<h3 id="配置npm"><a href="#配置npm" class="headerlink" title="配置npm"></a>配置npm</h3><ol>
+<li>确定安装目录，我的路径：<code>Z:\DEV\ENV\nodejs</code> （以后使用 <code>nodepath</code> 代替）</li>
+<li>找到安装目录下的npmrc文件，我的路径是：<code>nodepath\node_modules\npm\npmrc</code></li>
+<li><p>使用记事本打开 <code>npmrc</code>，加入以下配置</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">;这个是配置全局nodejs位置，安装好之后默认就是这里</span><br><span class="line">prefix=nodepath</span><br><span class="line">;用户配置文件,我自己新建了一个文件夹 NodejsEnv 用于保存个人 npmrc 配置</span><br><span class="line">userconfig=Z:\Dev\Env\NodejsEnv\.npmrc</span><br><span class="line">;这个不知道反正从c盘的我都移动了</span><br><span class="line">init-module=Z:\Dev\Env\NodejsEnv\.npm-init.js</span><br><span class="line">;设定Npm的源,默认的源在国内实在是太慢了</span><br><span class="line">registry=https://registry.npm.taobao.org/</span><br><span class="line">;设定npm的缓存,同样是为了将c盘中的文件移出来而已</span><br><span class="line">cache=Z:\Dev\Env\NOdejsEnv\Cache</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用 <code>npm config list</code> 查看配置是否和你配置的一致。 默认应该是显示如下</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">; cli configs</span><br><span class="line">scope = <span class="string">""</span></span><br><span class="line">user-agent = <span class="string">"npm/4.2.0 node/v7.9.0 win32 x64"</span></span><br><span class="line">; <span class="built_in">builtin</span> config undefined</span><br><span class="line">cache = <span class="string">"Z:\\Dev\\Env\\NodejsEnv\\Cache"</span></span><br><span class="line">init-module = <span class="string">"Z:\\Dev\\Env\\NodejsEnv\\.npm-init.js"</span></span><br><span class="line">prefix = <span class="string">"Z:\\Dev\\Env\\nodejs"</span></span><br><span class="line">registry = <span class="string">"https://registry.npm.taobao.org/"</span></span><br><span class="line">userconfig = <span class="string">"Z:\\Dev\\Env\\NodejsEnv\\.npmrc"</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>默认在使用 msi 安装了 npm 之后会自动加入环境变量</p>
+</li>
+</ol>
+<h2 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h2><p>以下命令使用 <code>git bash</code> 客户端进行操作</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br><span class="line">hexo version  // 可以检查hexo是否安装成功</span><br><span class="line">mkdir /z/Dev/Env/HexoBlog  // 以后使用 blogpath 代替</span><br><span class="line"><span class="built_in">cd</span> &#123;blogpath&#125;</span><br><span class="line">hexo init</span><br><span class="line">npm install</span><br><span class="line">hexo g</span><br><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>所有命令执行完，<a href="http://localhost:4000" target="_blank" rel="noopener">打开链接</a> 直接在浏览器上就能看到效果了。默认情况下，在不更改任何的<code>config.yml</code>文件，直接刷新网页就可以看到效果了。<br>如果出现端口问题，可以使用 hexo server -p <em>**</em>[端口号(1-65535)]</p>
+</blockquote>
+<h1 id="配置博客"><a href="#配置博客" class="headerlink" title="配置博客"></a>配置博客</h1><p>在 Hexo 中有两份主要的配置文件，其名称都是 _config.yml。 其中，一份位于站点根目录下，主要包含 Hexo 本身的配置；另一份位于主题目录下，这份配置由主题作者提供，主要用于配置主题相关的选项。</p>
+<h2 id="下载主题"><a href="#下载主题" class="headerlink" title="下载主题"></a>下载主题</h2><p>本站使用的是 Next.Mist 主题，下载方式</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> &#123;blogpath&#125;</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/iissnan/hexo-theme-next themes/next</span><br><span class="line"><span class="comment"># 下载完成之后删除 next 相关的 git 文件，方便备份。</span></span><br><span class="line">find themes/next -name <span class="string">".git"</span> | xargs rm -Rf</span><br></pre></td></tr></table></figure>
+<h2 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> &#123;blogpath&#125;</span><br><span class="line">npm install --save hexo-deployer-git <span class="comment"># 提交git仓库需要的插件</span></span><br><span class="line">npm install --save hexo-generator-feed <span class="comment"># 自动生成rss订阅</span></span><br><span class="line">npm install --save hexo-generator-sitemap <span class="comment"># 自动生成网站sitemap,方便被搜索引擎检索</span></span><br><span class="line">npm install --save shelljs  <span class="comment">#用于自动备份博客项目</span></span><br></pre></td></tr></table></figure>
+<p>请对比我的<code>{blogpath}/package.json</code>文件查看你缺少了那些，不用管版本号，缺少的使用上面的命令替换<code>--save</code>之后的就可以进行安装了</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"name"</span>: <span class="string">"hexo-site"</span>,</span><br><span class="line">  <span class="attr">"version"</span>: <span class="string">"0.0.0"</span>,</span><br><span class="line">  <span class="attr">"private"</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="attr">"hexo"</span>: &#123;</span><br><span class="line">    <span class="attr">"version"</span>: <span class="string">"3.5.0"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"dependencies"</span>: &#123;</span><br><span class="line">    <span class="attr">"hexo"</span>: <span class="string">"^3.2.0"</span>,</span><br><span class="line">    <span class="attr">"hexo-baidu-url-submit"</span>: <span class="string">"0.0.5"</span>,</span><br><span class="line">    <span class="attr">"hexo-deployer-git"</span>: <span class="string">"^0.3.0"</span>,</span><br><span class="line">    <span class="attr">"hexo-deployer-heroku"</span>: <span class="string">"^0.1.1"</span>,</span><br><span class="line">    <span class="attr">"hexo-generator-archive"</span>: <span class="string">"^0.1.4"</span>,</span><br><span class="line">    <span class="attr">"hexo-generator-baidu-sitemap"</span>: <span class="string">"^0.1.2"</span>,</span><br><span class="line">    <span class="attr">"hexo-generator-category"</span>: <span class="string">"^0.1.3"</span>,</span><br><span class="line">    <span class="attr">"hexo-generator-feed"</span>: <span class="string">"^1.2.0"</span>,</span><br><span class="line">    <span class="attr">"hexo-generator-index"</span>: <span class="string">"^0.2.1"</span>,</span><br><span class="line">    <span class="attr">"hexo-generator-sitemap"</span>: <span class="string">"^1.1.2"</span>,</span><br><span class="line">    <span class="attr">"hexo-generator-tag"</span>: <span class="string">"^0.2.0"</span>,</span><br><span class="line">    <span class="attr">"hexo-renderer-ejs"</span>: <span class="string">"^0.2.0"</span>,</span><br><span class="line">    <span class="attr">"hexo-renderer-marked"</span>: <span class="string">"^0.2.10"</span>,</span><br><span class="line">    <span class="attr">"hexo-renderer-stylus"</span>: <span class="string">"^0.3.1"</span>,</span><br><span class="line">    <span class="attr">"hexo-server"</span>: <span class="string">"^0.2.0"</span>,</span><br><span class="line">    <span class="attr">"shelljs"</span>: <span class="string">"^0.7.7"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>更加简单的安装插件的方式(2018年2月23日)<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> &#123;blogpath&#125;</span><br><span class="line">// 复制上面 dependencies 里面的所有数据，拷贝到本地Hexo博客目录的 package.json 文件中</span><br><span class="line">npm install</span><br><span class="line">// 完成，以后需要加新的插件，同样可以直接修改 dependencies 然后执行 上面的命令</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h2 id="Hexo-站点配置"><a href="#Hexo-站点配置" class="headerlink" title="Hexo 站点配置"></a>Hexo 站点配置</h2><p>站点配置主要在博客根目录的<code>_config.yml</code>文件中进行修改</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">title:</span> <span class="string">Lzrain</span> <span class="string">Blog</span></span><br><span class="line"><span class="attr">subtitle:</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">一切有为法，如梦幻泡影。如露亦如电，应作如是观。</span></span><br><span class="line"><span class="attr">author:</span> <span class="string">liuzhenrain</span>  <span class="comment"># 作者名字</span></span><br><span class="line"><span class="attr">language:</span> <span class="string">zh-Hans</span>   <span class="comment">#选择语言，zh-Hans为简体中文</span></span><br><span class="line"><span class="attr">timezone:</span> <span class="string">Asia/Shanghai</span>     <span class="comment"># 时区</span></span><br><span class="line"><span class="attr">theme:</span> <span class="string">next</span></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line"><span class="attr"> - type:</span> <span class="string">git</span></span><br><span class="line"><span class="attr">   repo:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">coding.net</span> <span class="string">的git链接</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">github.com</span> <span class="string">库的git链接</span></span><br><span class="line"><span class="attr">   branch:</span> <span class="string">master</span></span><br><span class="line"><span class="attr">   message:</span></span><br></pre></td></tr></table></figure>
+<p>修改了 <code>theme</code> 主题设置，一定要重启hexo服务<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ctrl+c</span></span><br><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo s</span><br></pre></td></tr></table></figure></p>
+<p>为了方便查看更改效果，建议参考我在 Mac 上的 Apache 配置，实现了在 hexo g 之后实时展示编译结果</p>
+<p>其他命令</p>
+<p>hexo clean</p>
+<p>备份本地 HEXO 项目</p>
+<ol>
+<li>点击查看如何创建 git.oschina.net 账户</li>
+<li>按照网站教程新建一个项目，比如项目名字为：HexoBlog</li>
+<li>配置本地 HexoBlog</li>
+</ol>
+<blockquote>
+<p>Next 主题地址：<a href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">https://github.com/iissnan/hexo-theme-next</a></p>
+</blockquote>
+<p>Hexo 内链方式，效果：<a href="/2017/05/mac-apache-hexo.html" title="查看 Mac+Apache实时预览">查看 Mac+Apache实时预览</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% post_link hello-world <span class="string">"查看 Hello World"</span> %&#125;</span><br></pre></td></tr></table></figure>
+<p>关闭工作区自动保存功能</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      liuzhenrain
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://lzrain.com/2017/05/hexoblog.html" title="Hexo博客完全版教程">http://lzrain.com/2017/05/hexoblog.html</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Hexo/" rel="tag"># Hexo</a>
+          
+            <a href="/tags/Github/" rel="tag"># Github</a>
+          
+            <a href="/tags/Coding-net/" rel="tag"># Coding.net</a>
+          
+            <a href="/tags/git-oschina-net/" rel="tag"># git.oschina.net</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/05/mac-apache-hexo.html" rel="prev" title="Mac+Apache 实时预览 Hexo 博客">
+                Mac+Apache 实时预览 Hexo 博客 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yODczMS81MzAy"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avator.png"
+               alt="liuzhenrain" />
+          <p class="site-author-name" itemprop="name">liuzhenrain</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/liuzhenrain" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#环境安装"><span class="nav-number">1.</span> <span class="nav-text">环境安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#写作工具"><span class="nav-number">1.1.</span> <span class="nav-text">写作工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Git"><span class="nav-number">1.2.</span> <span class="nav-text">安装Git</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-Nodejs"><span class="nav-number">1.3.</span> <span class="nav-text">安装 Nodejs</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#下载地址"><span class="nav-number">1.3.1.</span> <span class="nav-text">下载地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置npm"><span class="nav-number">1.3.2.</span> <span class="nav-text">配置npm</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Hexo"><span class="nav-number">1.4.</span> <span class="nav-text">安装Hexo</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置博客"><span class="nav-number">2.</span> <span class="nav-text">配置博客</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#下载主题"><span class="nav-number">2.1.</span> <span class="nav-text">下载主题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装插件"><span class="nav-number">2.2.</span> <span class="nav-text">安装插件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hexo-站点配置"><span class="nav-number">2.3.</span> <span class="nav-text">Hexo 站点配置</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">liuzhenrain</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io" rel="external nofollow">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

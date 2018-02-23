@@ -1,0 +1,923 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="lPMj6TGZsxNbhxvcaqtI54z6k4QfX6caEMvvHpyc9xE" />
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="xd9hRSav8Y" />
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|Monda:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="c#,正则表达式,正则" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Lzrain Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="正则表达式整理">
+<meta name="keywords" content="c#,正则表达式,正则">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C#正则表达式详解">
+<meta property="og:url" content="http://lzrain.com/2017/05/c-regex.html">
+<meta property="og:site_name" content="Lzrain Blog">
+<meta property="og:description" content="正则表达式整理">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-02-23T03:15:54.787Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C#正则表达式详解">
+<meta name="twitter:description" content="正则表达式整理">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+  <link rel="canonical" href="http://lzrain.com/2017/05/c-regex.html"/>
+
+
+
+
+
+  <title>C#正则表达式详解 | Lzrain Blog</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-70387805-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Lzrain Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">雨天的博客</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://lzrain.com/2017/05/c-regex.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="liuzhenrain">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avator.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lzrain Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">C#正则表达式详解</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-24T17:35:34+08:00">
+                2017-05-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/采集/" itemprop="url" rel="index">
+                    <span itemprop="name">采集</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-eye"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>正则表达式整理<br><a id="more"></a></p>
+<p>只能输入数字：<code>&quot;^[0-9]*$&quot;</code>。<br>只能输入n位的数字：<code>&quot;^\d{n}$&quot;</code>。<br>只能输入至少n位的数字：<code>&quot;^\d{n,}$&quot;</code>。<br>只能输入m~n位的数字：<code>&quot;^\d{m,n}$&quot;</code><br>只能输入零和非零开头的数字：”^(0|[1-9][0-9]<em>)$”。<br>只能输入有两位小数的正实数：”^[0-9]+(.[0-9]{2})?$”。<br>只能输入有1~3位小数的正实数：”^[0-9]+(.[0-9]{1,3})?$”。<br>只能输入非零的正整数：”^+?[1-9][0-9]</em>$”。<br>只能输入非零的负整数：”^-[1-9][]0-9”<em>$。<br>只能输入长度为3的字符：”^.{3}$”。<br>只能输入由26个英文字母组成的字符串：”^[A-Za-z]+$”。<br>只能输入由26个大写英文字母组成的字符串：”^[A-Z]+$”。<br>只能输入由26个小写英文字母组成的字符串：”^[a-z]+$”。<br>只能输入由数字和26个英文字母组成的字符串：”^[A-Za-z0-9]+$”。<br>只能输入由数字、26个英文字母或者下划线组成的字符串：”^\w+$”。<br>验证用户密码：”^[a-zA-Z]\w{5,17}$”正确格式为：以字母开头，长度在6~18之间，只能包含字符、数字和下划线。<br>验证是否含有^%&amp;’,;=?$\”等字符：”[^%&amp;’,;=?$\x22]+”。<br>只能输入汉字：”^[\u4e00-\u9fa5]{0,}$”<br>验证Email地址：”^\w+([-+.]\w+)</em>@\w+([-.]\w+)<em>.\w+([-.]\w+)</em>$”。<br>验证InternetURL：”^http://([\w-]+.)+[\w-]+(/[\w-./?%&amp;=]<em>)?$”。<br>验证电话号码：”^((\d{3,4}-)|\d{3.4}-)?\d{7,8}$”正确格式为：”XXX-XXXXXXX”、”XXXX-XXXXXXXX”、”XXX-XXXXXXX”、”XXX-XXXXXXXX”、”XXXXXXX”和”XXXXXXXX”。<br>验证身份证号(15位或18位数字)：”^\d{15}|\d{18}$”。<br>验证一年的12个月：”^(0?[1-9]|1[0-2])$”正确格式为：”01”～”09”和”1”～”12”。<br>验证一个月的31天：”^((0?[1-9])|((1|2)[0-9])|30|31)$”正确格式为;”01”～”09”和”1”～”31”。<br>利用正则表达式限制网页表单里的文本框输入内容：<br>用正则表达式限制只能输入中文：onkeyup=”value=value.replace(/[^\u4E00-\u9FA5]/g,’’)” onbeforepaste=”clipboardData.setData(’text’,clipboardData.getData(’text’).replace(/[^\u4E00-\u9FA5]/g,’’))”<br>用正则表达式限制只能输入全角字符： onkeyup=”value=value.replace(/[^\uFF00-\uFFFF]/g,’’)” onbeforepaste=”clipboardData.setData(’text’,clipboardData.getData(’text’).replace(/[^\uFF00-\uFFFF]/g,’’))”<br>用正则表达式限制只能输入数字：onkeyup=”value=value.replace(/[^\d]/g,’’) “onbeforepaste=”clipboardData.setData(’text’,clipboardData.getData(’text’).replace(/[^\d]/g,’’))”<br>用正则表达式限制只能输入数字和英文：onkeyup=”value=value.replace(/[\W]/g,’’) “onbeforepaste=”clipboardData.setData(’text’,clipboardData.getData(’text’).replace(/[^\d]/g,’’))”<br>得用正则表达式从URL地址中提取文件名的javascript程序，如下结果为page1<br>s=<a href="http://www.baidu.com" target="_blank" rel="noopener">http://www.baidu.com</a>  s=s.replace(/(.</em>\/){0,}([^.]+).<em>/ig,”$2”)  alert(s)<br>匹配双字节字符(包括汉字在内)：[^\x00-\xff]<br>应用：计算字符串的长度(一个双字节字符长度计2，ASCII字符计1)<br>String.prototype.len=function(){return this.replace([^\x00-\xff]/g,”aa”).length;}<br>匹配空行的正则表达式：\n[\s| ]</em>\r<br>匹配HTML标记的正则表达式：/&lt;(.<em>)&gt;.</em>&lt;\/\1&gt;|&lt;(.<em>) \/&gt;/<br>匹配首尾空格的正则表达式：(^\s</em>)|(\s<em>$)<br>String.prototype.trim = function()  　<br>　{  　<br>　return this.replace(/(^\s</em>)|(\s*$)/g, “”);  　<br>　}<br>利用正则表达式分解和转换IP地址：</p>
+<p>下面是利用正则表达式匹配IP地址，并将IP地址转换成对应数值的Javascript程序：<br>复制代码<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">IP2V</span>(<span class="params">ip</span>)  　</span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">    re=<span class="regexp">/(\d+)\.(\d+)\.(\d+)\.(\d+)/g</span> <span class="comment">//匹配IP地址的正则表达式  if(re.test(ip))  　</span></span><br><span class="line">　   &#123;  </span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">RegExp</span>.$<span class="number">1</span>*<span class="built_in">Math</span>.pow(<span class="number">255</span>,<span class="number">3</span>))+<span class="built_in">RegExp</span>.$<span class="number">2</span>*<span class="built_in">Math</span>.pow(<span class="number">255</span>,<span class="number">2</span>))+<span class="built_in">RegExp</span>.$<span class="number">3</span>*<span class="number">255</span>+<span class="built_in">RegExp</span>.$<span class="number">4</span>*<span class="number">1</span>  　</span><br><span class="line">　   &#125;  　</span><br><span class="line">　   <span class="keyword">else</span>  　</span><br><span class="line">　   &#123;  </span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"Not a valid IP address!"</span>) </span><br><span class="line">    &#125;  　</span><br><span class="line">　&#125;</span><br></pre></td></tr></table></figure></p>
+<p>复制代码<br>不过上面的程序如果不用正则表达式，而直接用split函数来分解可能更简单，程序如下：</p>
+<p>var ip=”10.100.20.168”  ip=ip.split(“.”)  　<br>alert(“IP值是：”+(ip[0]<em>255</em>255<em>255+ip[1]</em>255<em>255+ip[2]</em>255+ip[3]*1))<br>符号解释：</p>
+<p>\</p>
+<p>将下一个字符标记为一个特殊字符、或一个原义字符、或一个 向后引用、或一个八进制转义符。例如，’n’ 匹配字符 “n”。’\n’ 匹配一个换行符。序列 ’\’ 匹配 “\” 而 “(“ 则匹配 “(“。</p>
+<p>^</p>
+<p>匹配输入字符串的开始位置。如果设置了 RegExp 对象的 Multiline 属性，^ 也匹配 ’\n’ 或 ’\r’ 之后的位置。</p>
+<p>$</p>
+<p>匹配输入字符串的结束位置。如果设置了RegExp 对象的 Multiline 属性，$ 也匹配 ’\n’ 或 ’\r’ 之前的位置。</p>
+<p>*</p>
+<p>匹配前面的子表达式零次或多次。例如，zo<em> 能匹配 “z” 以及 “zoo”。</em> 等价于{0,}。</p>
+<p>+</p>
+<p>匹配前面的子表达式一次或多次。例如，’zo+’ 能匹配 “zo” 以及 “zoo”，但不能匹配 “z”。+ 等价于 {1,}。</p>
+<p>?</p>
+<p>匹配前面的子表达式零次或一次。例如，”do(es)?” 可以匹配 “do” 或 “does” 中的”do” 。? 等价于 {0,1}。</p>
+<p>{n}</p>
+<p>n 是一个非负整数。匹配确定的 n 次。例如，’o{2}’ 不能匹配 “Bob” 中的 ’o’，但是能匹配 “food” 中的两个 o。</p>
+<p>{n,}</p>
+<p>n 是一个非负整数。至少匹配n 次。例如，’o{2,}’ 不能匹配 “Bob” 中的 ’o’，但能匹配 “foooood” 中的所有 o。’o{1,}’ 等价于 ’o+’。’o{0,}’ 则等价于 ’o*’。</p>
+<p>{n,m}</p>
+<p>m 和 n 均为非负整数，其中n &lt;= m。最少匹配 n 次且最多匹配 m 次。例如，”o{1,3}” 将匹配 “fooooood” 中的前三个 o。’o{0,1}’ 等价于 ’o?’。请注意在逗号和两个数之间不能有空格。</p>
+<p>?</p>
+<p>当该字符紧跟在任何一个其他限制符 (*, +, ?, {n}, {n,}, {n,m}) 后面时，匹配模式是非贪婪的。非贪婪模式尽可能少的匹配所搜索的字符串，而默认的贪婪模式则尽可能多的匹配所搜索的字符串。例如，对于字符串 “oooo”，’o+?’ 将匹配单个 “o”，而 ’o+’ 将匹配所有 ’o’。</p>
+<p>.</p>
+<p>匹配除 “\n” 之外的任何单个字符。要匹配包括 ’\n’ 在内的任何字符，请使用象 ’[.\n]’ 的模式。</p>
+<p>(pattern)</p>
+<p>匹配 pattern 并获取这一匹配。所获取的匹配可以从产生的 Matches 集合得到，在VBScript 中使用 SubMatches 集合，在JScript 中则使用 $0…$9 属性。要匹配圆括号字符，请使用 ’(’ 或 ’)’。</p>
+<p>(?:pattern)</p>
+<p>匹配 pattern 但不获取匹配结果，也就是说这是一个非获取匹配，不进行存储供以后使用。这在使用 “或” 字符 (|) 来组合一个模式的各个部分是很有用。例如， ’industr(?:y|ies) 就是一个比 ’industry|industries’ 更简略的表达式。</p>
+<p>(?=pattern)</p>
+<p>正向预查，在任何匹配 pattern 的字符串开始处匹配查找字符串。这是一个非获取匹配，也就是说，该匹配不需要获取供以后使用。例如，’Windows (?=95|98|NT|2000)’ 能匹配 “Windows 2000” 中的 “Windows” ，但不能匹配 “Windows 3.1” 中的 “Windows”。预查不消耗字符，也就是说，在一个匹配发生后，在最后一次匹配之后立即开始下一次匹配的搜索，而不是从包含预查的字符之后开始。</p>
+<p>(?!pattern)</p>
+<p>负向预查，在任何不匹配 pattern 的字符串开始处匹配查找字符串。这是一个非获取匹配，也就是说，该匹配不需要获取供以后使用。例如’Windows (?!95|98|NT|2000)’ 能匹配 “Windows 3.1” 中的 “Windows”，但不能匹配 “Windows 2000” 中的 “Windows”。预查不消耗字符，也就是说，在一个匹配发生后，在最后一次匹配之后立即开始下一次匹配的搜索，而不是从包含预查的字符之后开始</p>
+<p>x|y</p>
+<p>匹配 x 或 y。例如，’z|food’ 能匹配 “z” 或 “food”。’(z|f)ood’ 则匹配 “zood” 或 “food”。</p>
+<p>[xyz]</p>
+<p>字符集合。匹配所包含的任意一个字符。例如， ’[abc]’ 可以匹配 “plain” 中的 ’a’。</p>
+<p>[^xyz]</p>
+<p>负值字符集合。匹配未包含的任意字符。例如， ’[^abc]’ 可以匹配 “plain” 中的’p’。</p>
+<p>[a-z]</p>
+<p>字符范围。匹配指定范围内的任意字符。例如，’[a-z]’ 可以匹配 ’a’ 到 ’z’ 范围内的任意小写字母字符。</p>
+<p>[^a-z]</p>
+<p>负值字符范围。匹配任何不在指定范围内的任意字符。例如，’[^a-z]’ 可以匹配任何不在 ’a’ 到 ’z’ 范围内的任意字符。</p>
+<p>\b</p>
+<p>匹配一个单词边界，也就是指单词和空格间的位置。例如， ’er\b’ 可以匹配”never” 中的 ’er’，但不能匹配 “verb” 中的 ’er’。</p>
+<p>\B</p>
+<p>匹配非单词边界。’er\B’ 能匹配 “verb” 中的 ’er’，但不能匹配 “never” 中的 ’er’。</p>
+<p>　   \cx</p>
+<p>匹配由 x 指明的控制字符。例如， \cM 匹配一个 Control-M 或回车符。x 的值必须为 A-Z 或 a-z 之一。否则，将 c 视为一个原义的 ’c’ 字符。</p>
+<p>\d</p>
+<p>匹配一个数字字符。等价于 [0-9]。</p>
+<p>\D</p>
+<p>匹配一个非数字字符。等价于 [^0-9]。</p>
+<p>\f</p>
+<p>匹配一个换页符。等价于 \x0c 和 \cL。</p>
+<p>\n</p>
+<p>匹配一个换行符。等价于 \x0a 和 \cJ。</p>
+<p>\r</p>
+<p>匹配一个回车符。等价于 \x0d 和 \cM。</p>
+<p>\s</p>
+<p>匹配任何空白字符，包括空格、制表符、换页符等等。等价于 [ \f\n\r\t\v]。</p>
+<p>\S</p>
+<p>匹配任何非空白字符。等价于 [^ \f\n\r\t\v]。</p>
+<p>\t</p>
+<p>匹配一个制表符。等价于 \x09 和 \cI。</p>
+<p>\v</p>
+<p>匹配一个垂直制表符。等价于 \x0b 和 \cK。</p>
+<p>\w</p>
+<p>匹配包括下划线的任何单词字符。等价于’[A-Za-z0-9_]’。</p>
+<p>\W</p>
+<p>匹配任何非单词字符。等价于 ’[^A-Za-z0-9_]’。</p>
+<p>\xn</p>
+<p>匹配 n，其中 n 为十六进制转义值。十六进制转义值必须为确定的两个数字长。例如，’\x41’ 匹配 “A”。’\x041’ 则等价于 ’\x04’ &amp; “1”。正则表达式中可以使用 ASCII 编码。.</p>
+<p>\num</p>
+<p>匹配 num，其中 num 是一个正整数。对所获取的匹配的引用。例如，’(.)\1’ 匹配两个连续的相同字符。</p>
+<p>\n</p>
+<p>标识一个八进制转义值或一个向后引用。如果 \n 之前至少 n 个获取的子表达式，则 n 为向后引用。否则，如果 n 为八进制数字 (0-7)，则 n 为一个八进制转义值。</p>
+<p>\nm</p>
+<p>标识一个八进制转义值或一个向后引用。如果 \nm 之前至少有 nm 个获得子表达式，则 nm 为向后引用。如果 \nm 之前至少有 n 个获取，则 n 为一个后跟文字 m 的向后引用。如果前面的条件都不满足，若 n 和 m 均为八进制数字 (0-7)，则 \nm 将匹配八进制转义值 nm。</p>
+<p>\nml</p>
+<p>如果 n 为八进制数字 (0-3)，且 m 和 l 均为八进制数字 (0-7)，则匹配八进制转义值 nml。</p>
+<p>\un</p>
+<p>匹配 n，其中 n 是一个用四个十六进制数字表示的 Unicode 字符。例如， \u00A9 匹配版权符号 (?)。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      liuzhenrain
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://lzrain.com/2017/05/c-regex.html" title="C#正则表达式详解">http://lzrain.com/2017/05/c-regex.html</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/C/" rel="tag"># C#</a>
+          
+            <a href="/tags/正则/" rel="tag"># 正则</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/mac-apache-hexo.html" rel="next" title="Mac+Apache 实时预览 Hexo 博客">
+                <i class="fa fa-chevron-left"></i> Mac+Apache 实时预览 Hexo 博客
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/06/vim.html" rel="prev" title="VIM 快捷键等整理">
+                VIM 快捷键等整理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yODczMS81MzAy"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avator.png"
+               alt="liuzhenrain" />
+          <p class="site-author-name" itemprop="name">liuzhenrain</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/liuzhenrain" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">liuzhenrain</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io" rel="external nofollow">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
